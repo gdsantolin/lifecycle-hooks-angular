@@ -1,9 +1,25 @@
 <section class="main">
-  <app-input>
+  <app-input [itemEditar]="itemEditar">
   </app-input>
   <div class="container">
     <div class="lista">
-      <h4 class="title-list">Lista de Compras</h4>
+      <div class="header-lista">
+        <h4 class="title-list">Lista de Compras</h4>
+        <button class="btn-header" (click)="limparLista()">
+          <small>Limpar lista</small>
+        </button>
+      </div>
+      <div *ngIf="listaCompras.length !== 0; else semItens">
+        <div *ngFor="let item of listaCompras">
+          <app-item [item]="item"
+            (emitEditar)="editarItem($event)"
+            (emitDeletar)="deletarItem($event)"
+          ></app-item>
+        </div>
+      </div>
     </div>
+    <ng-template #semItens>
+      <small>Não há itens na lista!</small>
+    </ng-template>
   </div>
 </section>
